@@ -141,6 +141,13 @@ def check_bound(obj_rct, scr_rct):
     return yoko, tate
 
 
+def up_bomb(score, scr): #スコアに応じて爆弾の数を増やす
+    for i in range(10):
+            if score.get_score() >= 15*i:#スコアが上がると15点ごとに
+                if len(bomblist) <= i:#爆弾がi個以下なら
+                    bomblist.append(Bomb((255, 0, 0), 10, (+1, +1), scr))#爆弾を1個増やす
+
+
 def main():
     # 練習1
     scr = Screen("逃げろ！こうかとん", (1600, 900), "fig/pg_bg.jpg")
@@ -179,10 +186,7 @@ def main():
         score.blit(scr)
         timer.blit(scr)
          
-        for i in range(10):
-            if score.get_score() >= 15*i:#スコアが上がると15点ごとに
-                if len(bomblist) <= i:#爆弾がi個以下なら
-                    bomblist.append(Bomb((255, 0, 0), 10, (+1, +1), scr))#爆弾を1個増やす
+        up_bomb(score, scr) #スコアに応じて爆弾の数を増やす
 
         # 練習8
         for i in range(len(bomblist)):
